@@ -757,7 +757,7 @@ def update_text_layer(options, text_tokens, page_tokens):
 		text_tokens_index = 0
 		text_tokens_charpos = 0
 		text_tokens_token_xdiff = 0
-		text_content = "".join(t.value for t in text_tokens)
+		text_content = "\n".join(t.value for t in text_tokens)
 		for m in pattern.finditer(text_content):
 			# We got a match at text_content[i1:i2].
 			i1 = m.start()
@@ -773,8 +773,8 @@ def update_text_layer(options, text_tokens, page_tokens):
 				# produced the matched text. Start by advancing over any
 				# tokens that are entirely before this span of text.
 				while text_tokens_index < len(text_tokens) and \
-				      text_tokens_charpos + len(text_tokens[text_tokens_index].value)-text_tokens_token_xdiff <= i1:
-					text_tokens_charpos += len(text_tokens[text_tokens_index].value)-text_tokens_token_xdiff
+				      text_tokens_charpos + len(text_tokens[text_tokens_index].value)-text_tokens_token_xdiff+1 <= i1:
+					text_tokens_charpos += len(text_tokens[text_tokens_index].value)-text_tokens_token_xdiff+1
 					text_tokens_index += 1
 					text_tokens_token_xdiff = 0
 				if text_tokens_index == len(text_tokens): break
